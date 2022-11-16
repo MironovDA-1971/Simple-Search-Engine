@@ -8,3 +8,11 @@ data class PrintMessage(var maxNumber: Int = 0) {
     val peopleFound = "People found:"
     val noMatchingPeopleFound = "No matching people found."
 }
+
+fun printPerson(){
+
+}
+
+fun searchPerson(){
+
+}

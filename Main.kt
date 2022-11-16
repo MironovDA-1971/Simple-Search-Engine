@@ -1,9 +1,6 @@
 package search
 
 fun main() {
-    //val stringList = readln().split(" ")
-    //val word = readln()
-    //println(if (stringList.contains(word)) stringList.indexOf(word) + 1 else "Not found")
     val message = PrintMessage()
     println(message.enterNumberOfPeople)
     val numOfPeople = readln().toInt()
@@ -24,7 +21,6 @@ fun main() {
                 println(allPeopleList[i])
             }
         }
-        if (flag == 0) println("${message.noMatchingPeopleFound}")
-        //else println("\n")
+        if (flag == 0) println(message.noMatchingPeopleFound)
     }
 }
