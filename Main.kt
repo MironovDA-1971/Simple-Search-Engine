@@ -3,24 +3,17 @@ package search
 fun main() {
     val message = PrintMessage()
     println(message.enterNumberOfPeople)
-    val numOfPeople = readln().toInt()
+    val numOfPeople = readlnOrNull()?.toInt()?: 0 //NumberFormatException
     println(message.enterAllPeople)
     val allPeopleList = List(numOfPeople) { readln().trim() }
-    println(message.enterNumberOfQueries)
-    val numQueries = readln().toInt()
-    for (a in 1..numQueries) {
-        println(message.enterDataToSearchPeople)
-        val searchKey = readln().trim().lowercase()
-        var flag = 0
-        for (i in allPeopleList.indices) {
-            if (allPeopleList[i].lowercase().contains(searchKey)) {
-                if (flag == 0) {
-                    println(message.peopleFound)
-                    flag = 1
-                }
-                println(allPeopleList[i])
-            }
+    val userMenu = UserMenu()
+    while (true) {
+        when(userMenu.outMenu()) {
+            0 -> break
+            1 -> searchQuery(allPeopleList, message)
+            2 -> printPerson(allPeopleList, message)
+            else -> message.menuInputError
         }
-        if (flag == 0) println(message.noMatchingPeopleFound)
     }
+    println("\nBye!")
 }
