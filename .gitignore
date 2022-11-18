@@ -18,6 +18,8 @@
 *.zip
 *.tar.gz
 *.rar
+
+# My ignore files
 *.xml
 *.iml
 .idea
