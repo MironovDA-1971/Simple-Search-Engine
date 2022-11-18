@@ -17,6 +17,7 @@ data class PrintMessage(var maxNumber: Int = 0) {
                              )
 }
 
+
 class UserMenu {
     private val menu = PrintMessage()
 
