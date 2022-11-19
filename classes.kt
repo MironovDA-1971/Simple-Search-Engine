@@ -41,7 +41,8 @@ class UserMenu {
 
 fun printPerson(listPerson: List<String>, message: PrintMessage) {
     println(message.listOfPeople)
-    for (i in listPerson.indices) println(listPerson[i])
+    //for (i in listPerson.indices) println(listPerson[i])
+    listPerson.forEach { println(it) }
 }
 
 fun searchQuery(listPerson: List<String>, message: PrintMessage) {
