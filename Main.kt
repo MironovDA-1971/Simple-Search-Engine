@@ -1,14 +1,9 @@
 package search
 
-fun main() {
-    /*
-    println(message.enterNumberOfPeople)
-    val numOfPeople = readlnOrNull()?.toInt()?: 0 //NumberFormatException
-    println(message.enterAllPeople)
-    val allPeopleList = List(numOfPeople) { readln().trim() }
-    */
-    val numOfPeople = readlnOrNull()?.toInt()?: 0 //NumberFormatException
-    val allPeopleList = List(numOfPeople) { readln().trim() }
+fun main(args: Array<String>) {
+
+    val fileName = args[args.indexOf("--data") + 1]
+    val allPeopleList = readFile(fileName).split("\n")
 
     val message = PrintMessage()
     val userMenu = UserMenu()

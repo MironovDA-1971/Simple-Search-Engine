@@ -1,8 +1,10 @@
 package search
 
+import java.io.File
+
 data class PrintMessage(var maxNumber: Int = 0) {
-    val enterNumberOfPeople = "Enter the number of people:"
-    val enterAllPeople = "Enter all people:"
+    //val enterNumberOfPeople = "Enter the number of people:"
+    //val enterAllPeople = "Enter all people:"
 
     val enterDataToSearchPeople = "\nEnter a name or email to search all suitable people."
     val peopleFound = "People found:"
@@ -56,4 +58,14 @@ fun searchQuery(listPerson: List<String>, message: PrintMessage) {
         }
     }
     if (flag == 0) println(message.noMatchingPeopleFound)
+}
+
+fun readFile(fileName: String): String {
+    val userDir = System.getProperty ("user.dir") + File.separator
+    return try {
+        File("$userDir$fileName").readText()
+    } catch (e: Exception) {
+        println("Error! File not found.")
+        "Error"
+    }
 }
