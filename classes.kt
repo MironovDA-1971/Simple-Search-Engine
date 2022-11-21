@@ -89,12 +89,12 @@ fun searchQuery(listPerson: List<String>, message: PrintMessage) {
     if (flag == 0) println(message.noMatchingPeopleFound)
 }
 
-fun readFile(fileName: String): String {
+fun readFile(fileName: String): List<String> {
     val userDir = System.getProperty ("user.dir") + File.separator
     return try {
-        File("$userDir$fileName").readText()
+        File("$userDir$fileName").readLines()
     } catch (e: Exception) {
         println("Error! File not found.")
-        "Error"
+        listOf("Error")
     }
 }

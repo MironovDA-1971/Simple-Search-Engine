@@ -3,7 +3,7 @@ package search
 fun main(args: Array<String>) {
 
     val fileName = args[args.indexOf("--data") + 1]
-    val allPeopleList = readFile(fileName).split(System.lineSeparator())
+    val allPeopleList = readFile(fileName)
     val mapIndex = getIndexKey(allPeopleList)
     //mapIndex.forEach { println(it) }
 
