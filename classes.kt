@@ -92,6 +92,7 @@ fun indexSearch(
             }
         }
 
+
         println("${indexNum.size} ${message.personFound}")
         indexNum.forEach { println(listPerson[it]) }
     } catch (e: NoSuchElementException) {

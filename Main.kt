@@ -17,6 +17,4 @@ fun main(args: Array<String>) {
         }
     }
     println("\nBye!")
-   // val numbers = setOf("one", "two", "three")
-   // numbers.forEach { println(it) }
 }
