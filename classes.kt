@@ -56,7 +56,8 @@ class UserMenu {
 
 class Search(
     var indexMap: MutableMap<String, MutableList<Int>>,
-    var listPerson: List<String>) {
+    var listPerson: List<String>
+    ) {
 
     private val message = PrintMessage()
     var indexNum = emptyList<Int>()
@@ -68,7 +69,7 @@ class Search(
                                 else (indexStr intersect indexNum.toSet()).toMutableList()
 
     private fun strategyNone() = if (indexNum.isEmpty()) (listPerson.indices.toSet() subtract indexStr.toSet()).toList()
-                                else (indexNum subtract indexStr.toSet()).toMutableList()
+                                 else (indexNum subtract indexStr.toSet()).toMutableList()
 
     fun indexSearch() {
         val selStr = UserMenu().selectStrategy(message)
