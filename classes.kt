@@ -16,13 +16,11 @@ data class PrintMessage(var maxNumber: Int = 0) {
                               "Print all people"
                              )
     val selectStrategy = "Select a matching strategy: ALL, ANY, NONE"
+    val invalidOperator = "Invalid operator!"
 }
 
-enum class Strategy(val select: String) {
-    ALL("ALL"),
-    ANY("ANY"),
-    NONE("NONE"),
-    NULL("");
+enum class Strategy {
+    ALL, ANY, NONE
 }
 
 class UserMenu {
@@ -50,9 +48,46 @@ class UserMenu {
             try {
                 return  Strategy.valueOf(select)
             } catch (e: IllegalArgumentException) {
-                println("Illegal operator!")
+                println(message.invalidOperator)
             }
         }
+    }
+}
+
+class Search(
+    var indexMap: MutableMap<String, MutableList<Int>>,
+    var listPerson: List<String>) {
+
+    private val message = PrintMessage()
+    var indexNum = emptyList<Int>()
+    var indexStr = emptyList<Int>()
+
+    private fun strategyAny() = (indexNum union indexStr).toMutableList()
+
+    private fun strategyAll() = if (indexNum.isEmpty()) indexStr
+                                else (indexStr intersect indexNum.toSet()).toMutableList()
+
+    private fun strategyNone() = if (indexNum.isEmpty()) (listPerson.indices.toSet() subtract indexStr.toSet()).toList()
+                                else (indexNum subtract indexStr.toSet()).toMutableList()
+
+    fun indexSearch() {
+        val selStr = UserMenu().selectStrategy(message)
+        println(message.enterDataToSearchPeople)
+        val searchKey = readln().trim().lowercase().split(" ")
+
+        for (stringKey in searchKey) {
+            try { indexStr = indexMap.filterKeys { it.lowercase() == stringKey }.getValue(stringKey) }
+            catch (_: NoSuchElementException) { }
+            indexNum = when(selStr) {
+                Strategy.ANY -> strategyAny()
+                Strategy.ALL -> strategyAll()
+                Strategy.NONE -> strategyNone()
+            }
+        }
+        if (indexNum.isNotEmpty()) {
+            println("${indexNum.size} ${message.personFound}")
+            indexNum.forEach { println(listPerson[it]) }
+        } else println(message.noMatchingPeopleFound)
     }
 }
 
@@ -68,36 +103,6 @@ fun getIndexKey(listPerson: List<String>): MutableMap<String, MutableList<Int>> 
         }
     }
     return indexMap
-}
-
-fun indexSearch(
-    indexMap: MutableMap<String, MutableList<Int>>,
-    listPerson: List<String>,
-    message: PrintMessage
-) {
-    try {
-        val selStr = UserMenu().selectStrategy(message)
-        println(message.enterDataToSearchPeople)
-        val searchKey = readln().trim().lowercase().split(" ")
-        var indexNum = emptyList<Int>()
-        //
-        for (stringKey in searchKey) {
-            val indexStr = indexMap.filterKeys { it.lowercase() == stringKey }.getValue(stringKey)
-            when(selStr) {
-                Strategy.ANY -> indexNum = (indexNum union indexStr).toMutableList()
-                Strategy.ALL -> indexNum = if (indexNum.isEmpty()) indexStr
-                                           else (indexStr intersect indexNum.toSet()).toMutableList()
-                Strategy.NONE -> indexNum = (listPerson.indices.toSet() subtract indexStr.toSet()).toList()
-                else -> {}
-            }
-        }
-
-
-        println("${indexNum.size} ${message.personFound}")
-        indexNum.forEach { println(listPerson[it]) }
-    } catch (e: NoSuchElementException) {
-        println(message.noMatchingPeopleFound)
-    }
 }
 
 fun printPerson(listPerson: List<String>, message: PrintMessage) {

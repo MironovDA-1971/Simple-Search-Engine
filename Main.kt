@@ -11,7 +11,7 @@ fun main(args: Array<String>) {
     while (true) {
         when(userMenu.outMenu()) {
             0 -> break
-            1 -> indexSearch(mapIndex, allPeopleList, message)
+            1 -> Search(mapIndex, allPeopleList).indexSearch()
             2 -> printPerson(allPeopleList, message)
             else -> message.menuInputError
         }
